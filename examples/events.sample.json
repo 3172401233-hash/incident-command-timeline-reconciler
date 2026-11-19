@@ -1,0 +1,54 @@
+[
+  {
+    "id": "d-start",
+    "source": "deploy-system",
+    "type": "deploy",
+    "status": "started",
+    "occurredAt": "2026-11-19T12:00:00Z",
+    "deployRefs": ["D-200"],
+    "incidentRefs": ["INC-9"],
+    "message": "发布 auth-service v1.8"
+  },
+  {
+    "id": "a-fire",
+    "source": "alerting",
+    "type": "alert",
+    "status": "firing",
+    "occurredAt": "2026-11-19T12:04:00Z",
+    "duplicateKey": "auth-latency",
+    "deployRefs": ["D-200"],
+    "incidentRefs": ["INC-9"],
+    "message": "登录延迟 P99 超过 2s"
+  },
+  {
+    "id": "a-fire-copy",
+    "source": "chat-bridge",
+    "type": "alert",
+    "status": "firing",
+    "receivedAt": "2026-11-19T12:04:40Z",
+    "duplicateKey": "auth-latency",
+    "message": "登录延迟告警（聊天转发）"
+  },
+  {
+    "id": "a-resolve",
+    "source": "alerting",
+    "type": "alert",
+    "status": "resolved",
+    "occurredAt": "2026-11-19T12:15:00Z",
+    "incidentRefs": ["INC-9"],
+    "causalRefs": ["d-rollback"],
+    "message": "登录延迟恢复"
+  },
+  {
+    "id": "d-rollback",
+    "source": "deploy-system",
+    "type": "deploy",
+    "status": "rolled_back",
+    "occurredAt": "2026-11-19T11:58:00Z",
+    "receivedAt": "2026-11-19T12:12:00Z",
+    "deployRefs": ["D-200"],
+    "incidentRefs": ["INC-9"],
+    "causalRefs": ["a-fire"],
+    "message": "回滚 auth-service（来源时钟漂移）"
+  }
+]
